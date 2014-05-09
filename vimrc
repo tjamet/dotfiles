@@ -19,7 +19,7 @@ set scs
 "set ignorecase smartcase
 set autoindent
 " no tab at LBC
-set shiftwidth=2 tabstop=2
+set shiftwidth=4 tabstop=4
 set expandtab
 "set tags=~/tags
 

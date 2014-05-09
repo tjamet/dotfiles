@@ -1,0 +1,11 @@
+[user]
+	name = Thibault Jamet
+    email= tjamet@users.noreply.github.com
+[color]
+	diff = auto
+	branch = auto
+	status = auto
+[alias]
+	co = checkout
+	br = branch
+	st = status

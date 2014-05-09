@@ -7,7 +7,7 @@ fi
 ENV_DIR=$1
 
 
-for f in vim vimrc bashrc.perso git-completion.sh git-prompt.sh ; do
+for f in vim vimrc bashrc.perso git-completion.sh git-prompt.sh gitconfig.perso ; do
   if [ -h ${HOME}/.$f ] ; then
     unlink ${HOME}/.$f ;
   fi
