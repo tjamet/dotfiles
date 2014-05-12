@@ -104,7 +104,9 @@
 "   md5sum
 "   cscope_maps.vim plugin is recommended
 "
-
+if expand('$WITHOUT_CTAGS')==1
+    finish
+endif
 if exists("g:loaded_autotags") || &cp
     finish
 endif

@@ -1,6 +1,9 @@
 "
 " cscope (a tool to browse through C source files ) keymaping
 "
+if expand('$WITHOUT_CTAGS')==1
+    finish
+endif
 
 " if compiled with --enable-cscope
 if has("cscope")

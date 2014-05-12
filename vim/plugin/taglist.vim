@@ -2,6 +2,10 @@
 " an overview of the structure of the programming language files 
 " in a side panel ( toggle with <F8> )
 
+if expand('$WITHOUT_CTAGS')==1
+    finish
+endif
+
 map <silent> <F8> :TlistToggle<CR>
 let Tlist_Ctags_Cmd = '/usr/bin/ctags'
 let Tlist_Process_File_Always = 1

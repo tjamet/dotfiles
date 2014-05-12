@@ -59,9 +59,9 @@ if [ "$TERM" != "dumb" ]; then
     alias ls='ls --color=auto'
 fi
 
-type gvim 2>&1 >/dev/null
+type gvim >/dev/null 2>&1
 if [ $? -ne 0 ]; then
-    echo defaulting gvim to vim ;
+    #echo defaulting gvim to vim ;
     alias gvim="vim";
 fi
 
@@ -78,7 +78,7 @@ toto (){
     echo " toto "
 }
 if [ -e ${HOME}/.git-prompt.sh ]; then
-  PS1="${PS1_START}"'$(__git_ps1   " (%s)") '" ${PS1_END}"
+  PS1="${PS1_START}"'$(__git_ps1   " (%s)") '"${PS1_END}"
   #PS1='$(date)'"${PS1_START}${PS1_END}"
   source ~/.git-prompt.sh
   #PS1='${green}\u@\h:\[\033[00;34m\]\w\[\033[32m\]$(__git_ps1 " (%s)")\[\033[0m\] \$ '
@@ -106,7 +106,7 @@ function abspath() {
     cd "$OLDPWD"
 }
 function get_sshfs_mount_point(){
-    if [ $# != 1 ] ; then echo "please specify directory" ; return 1 ; fi
+    if [ $# != 1 ] ; then echo "please specify directory" >&2 ; return 1 ; fi
     readlink -f $1
 }
 function get_sshfs_folder(){
@@ -150,14 +150,14 @@ function forward(){
         err=$?
         if [ $err -eq 0 ]; then
             if [ $REMOTE -a $HOST ]; then
-                #echo forwarding $@ to $HOST on $REMOTE
-                ssh -t -X $HOST "cd $REMOTE;$@"
-                err=$? ;
+                cmd=$1
+                shift
+                ssh -q -T -X $HOST "cd $REMOTE; set -e ; $cmd $(for i in $(seq $#) ; do echo -n " '$1'" ; shift ; done )" 2>/dev/null
+                err=$?
                 return $err ;
             fi
         fi
     fi
-    #echo "local $@";
     $@ ;
     err=$?;
     return $err;
@@ -165,6 +165,8 @@ function forward(){
 if ! [ $TJ_FINAL_HOST ] ; then
     alias make='forward make'
     alias git='forward git'
+    export GIT_CMD='forward git'
 fi
+unset TJ_FINAL_HOST
 
 #PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"'echo "$PWD $(history 1)" >> ~/.bash_eternal_history'

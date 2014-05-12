@@ -11,6 +11,7 @@ set mousemodel=popup
 
 function! PopulateMenu()
 	exe "amenu PopUp.-Sep-                         		:"
+if expand('$WITHOUT_CTAGS')=='$WITHOUT_CTAGS' || $WITHOUT_CTAGS!=1
 	exe "amenu PopUp.File<Tab><F4>       			    :cscope find f <C-R>=expand('<cfile>')<CR><CR>"
 	exe "amenu PopUp.Symbol<Tab><F5>     			    :cscope find s <C-R>=expand('<cword>')<CR><CR>"
 	exe "amenu PopUp.Definition<Tab><F6> 			    :cscope find g <C-R>=expand('<cword>')<CR><CR>"
@@ -22,6 +23,7 @@ function! PopulateMenu()
 	exe "amenu PopUp.DatabaseUpdate<Tab><F3>       		:call AutotagsUpdate()<CR>"
 	exe "amenu PopUp.AddExtDatabase<Tab><Shift-F3> 		:call AutotagsAdd()<CR>"
 	exe "amenu PopUp.-Sep-                         		:"
+endif
 	exe "amenu PopUp.ToggleTagList<Tab><F8>             :TlistToggle<CR>"
 	exe "amenu PopUp.-Sep-                         		:"
 endfunc
