@@ -367,7 +367,6 @@ __git_ps1 ()
 		elif [ -h "$g/HEAD" ]; then
 			# symlink symbolic ref
 			b="$(${GIT_CMD} symbolic-ref HEAD 2>/dev/null)"
-            echo "b $b"
 		else
 			local head=""
 			if ! eread "$g/HEAD" head; then
