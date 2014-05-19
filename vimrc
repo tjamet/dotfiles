@@ -1,4 +1,14 @@
 set nocompatible	" Use Vim defaults (much better!)
+filetype off
+set rtp+=~/.vim/bundle
+call vundle#begin("~/vimPlugins")
+Plugin 'gmarik/Vundle.vim'
+Plugin 'Lokaltog/vim-powerline'
+call vundle#end()
+":VundleUpdate
+":q
+
+filetype on
 
 "source $TJ_ENV_DIR/.vim/mswin.vim
 "source $TJ_ENV_DIR/.vim/colors/mysyncolor.vim
@@ -47,7 +57,7 @@ set linebreak
 "set showbreak=\ <<\ 
 set guioptions+=b
 set ruler
-set laststatus=1
+set laststatus=2
 set showmatch
 
 " Set autocompletion options (Tab key) on command line

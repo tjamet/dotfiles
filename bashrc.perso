@@ -4,6 +4,23 @@
 #  echo "WARNING : disabled gvim alias as .vimrc is not found in $HOME" >&2 ;
 #fi
 
+# 2-3 functions to get the list of latest targets...
+
+fw_make(){
+    if ! [ -d "%STATE" ]; then 
+        mkdir "%STATE" ;
+        > "%STATE/target"
+    fi
+    grep -v "^$@$" %STATE/target > %STATE/target1
+    cat %STATE/target1  > %STATE/target
+    echo $@            >> %STATE/target
+    env make $(for i in $(seq $#); do echo -n " $1"; shift ; done) ;
+}
+
+alias make='fw_make'
+alias ht='cat %STATE/target'
+
+
 alias ls='ls -CF --color=tty'
 
 
@@ -94,12 +111,13 @@ fi
 #
 
 function fbi () {
-find . -name "\.svn" -prune -o -name "%*" -prune -o -type f | xargs grep -i $1 | grep -iv matches
+    find . -name "\.svn" -prune -o -name "%*" -prune -o -type f | xargs grep -i $1 | grep -iv matches
 }
 
 function fb () {
-find . -name "\.svn" -prune -o -name "%*" -prune -o -type f | grep -i $1 | grep -iv matches
+    find . -name "\.svn" -prune -o -name "\.git" -prune -o -name regress_final -prune -type f -o -name "%*" -prune -o -type f | grep -i $1 | grep -iv matches
 }
+
 function abspath() {                                               
     cd "$(dirname "$1")"
     printf "%s/%s\n" "$(pwd)" "$(basename "$1")"
@@ -145,20 +163,20 @@ function forward(){
     WD=$(pwd)
     REMOTE=$(get_sshfs_folder $WD)
     err=$?
+    cmd=$1
+    shift
     if [ $err -eq 0 ]; then 
         HOST=$(get_sshfs_host $WD)
         err=$?
         if [ $err -eq 0 ]; then
             if [ $REMOTE -a $HOST ]; then
-                cmd=$1
-                shift
                 ssh -q -T -X $HOST "cd $REMOTE; set -e ; $cmd $(for i in $(seq $#) ; do echo -n " '$1'" ; shift ; done )" 2>/dev/null
                 err=$?
                 return $err ;
             fi
         fi
     fi
-    $@ ;
+    $cmd $(for i in $(seq $#) ; do echo -n " $1" ; shift ; done )
     err=$?;
     return $err;
 }
@@ -169,4 +187,4 @@ if ! [ $TJ_FINAL_HOST ] ; then
 fi
 unset TJ_FINAL_HOST
 
-#PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"'echo "$PWD $(history 1)" >> ~/.bash_eternal_history'
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"'echo "$PWD $(history 1)" >> ~/.bash_eternal_history'

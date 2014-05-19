@@ -1,4 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
-let g:netrw_dirhist_1='/home/tjamet/GIT/swTools_branch/programs/xg/tools'
-let g:netrw_dirhist_2='/home/tjamet/SVN/Fusion/firmware/darkpipe'
