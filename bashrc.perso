@@ -6,6 +6,8 @@
 
 # 2-3 functions to get the list of latest targets...
 
+export PATH=$PATH:$HOME/.local/bin
+
 fw_make(){
     if ! [ -d "%STATE" ]; then 
         mkdir "%STATE" ;

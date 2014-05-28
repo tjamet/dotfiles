@@ -8,6 +8,15 @@ call vundle#end()
 ":VundleUpdate
 ":q
 
+let g:Powerline_symbols = 'unicode'
+"let g:Powerline_mode_V  = 'VISUAL LINE'
+"let g:Powerline_mode_cv = 'VISUAL BLOCK'
+"let g:Powerline_mode_S  = 'SELECT LINE'
+"let g:Powerline_mode_cs = 'SELECT BLOCK'
+set t_Co=256
+
+set encoding=utf-8
+set fileencoding=utf-8
 filetype on
 
 "source $TJ_ENV_DIR/.vim/mswin.vim
@@ -74,8 +83,8 @@ set printheader=%<%f%=Page\ %N
 set printoptions=left:10mm,right:5mm,top:10mm,bottom:10mm,header:2,syntax:y,number:y,wrap:y,portrait:y,paper:A4
 
 " Define characters to be listed in list mode (tab, eol, extends, precedes, trail
-" Alternative charcters for listchars:  ° » « · ­ Þ ¤ ¶
-" set listchars=tab:Þ·,extends:»,precedes:«,trail:¤
+" Alternative charcters for listchars:  Â° Â» Â« Â· Â­ Ãž Â¤ Â¶
+" set listchars=tab:ÃžÂ·,extends:Â»,precedes:Â«,trail:Â¤
 " set list
 " highlight NonText    term=reverse cterm=NONE ctermbg=DarkMagenta ctermfg=Yellow gui=NONE guibg=DarkMagenta guifg=Yellow
 " highlight SpecialKey term=italic  cterm=NONE ctermbg=LightGray ctermfg=Cyan     gui=NONE guibg=LightGray guifg=DarkGray
