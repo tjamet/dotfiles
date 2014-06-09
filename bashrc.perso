@@ -28,6 +28,18 @@ alias ls='ls -CF --color=tty'
 
 alias h='history'
 
+# initializes the ssh agent infos so that no password is requested with ssh
+if [ -f ~/agent ] ; then
+   source ~/agent >/dev/null 2>/dev/null ;
+   if [[ $(stat $SSH_AUTH_SOCK 2>/dev/null | wc -l) == "0" ]]; then
+      rm ~/agent ;
+   fi
+fi
+if ! [ -f ~/agent ] ; then
+   ssh-agent > ~/agent ;
+   source ~/agent >/dev/null 2>/dev/null ;
+fi
+
 #
 # some pretty colors to ls
 #
