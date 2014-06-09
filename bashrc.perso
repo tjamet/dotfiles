@@ -4,10 +4,44 @@
 #  echo "WARNING : disabled gvim alias as .vimrc is not found in $HOME" >&2 ;
 #fi
 
+if [[ $(uname) != "Darwin" ]];then
+    alias ls='ls -CF --color=tty'
+    
+    #
+    # some pretty colors to ls
+    #
+    export LS_OPTIONS='--color=auto'
+    eval "`dircolors`"
+    alias ll='ls $LS_OPTIONS -l'
+    if [ "$TERM" != "dumb" ]; then
+        eval "`dircolors -b`"
+        alias ls='ls --color=auto'
+    fi
+    type gvim >/dev/null 2>&1
+    if [ $? -ne 0 ]; then
+        #echo defaulting gvim to vim ;
+        alias gvim="vim";
+    fi
+else
+    alias ls="ls -G";
+    alias ll="ls -alG" ;
+    alias gvim="open -a Macvim" ;
+    alias firefox="open -a firefox" ;
+    # see if docker is installed...
+    type boot2docker >/dev/null
+    err=$?
+    if [ $err -eq 0 ] ; then
+        boot2docker init  > /dev/null 2>/dev/null
+        boot2docker start > /dev/null 2>/dev/null
+        export DOCKER_HOST=tcp://$(boot2docker ip 2>/dev/null):2375
+    fi
+fi
+
 # 2-3 functions to get the list of latest targets...
 
-export PATH=$PATH:$HOME/.local/bin
+export PATH=$PATH:$HOME/.local/bin:$HOME/bin
 
+alias h="history"
 fw_make(){
     if ! [ -d "%STATE" ]; then 
         mkdir "%STATE" ;
@@ -22,12 +56,6 @@ fw_make(){
 alias make='fw_make'
 alias ht='cat %STATE/target'
 
-
-alias ls='ls -CF --color=tty'
-
-
-alias h='history'
-
 # initializes the ssh agent infos so that no password is requested with ssh
 if [ -f ~/agent ] ; then
    source ~/agent >/dev/null 2>/dev/null ;
@@ -39,14 +67,6 @@ if ! [ -f ~/agent ] ; then
    ssh-agent > ~/agent ;
    source ~/agent >/dev/null 2>/dev/null ;
 fi
-
-#
-# some pretty colors to ls
-#
-export LS_OPTIONS='--color=auto'
-eval "`dircolors`"
-alias ll='ls $LS_OPTIONS -l'
-
 
 #
 # Some nice colors to prompt
@@ -84,18 +104,6 @@ xterm*|rxvt*)
 *)
     ;;
 esac
-
-if [ "$TERM" != "dumb" ]; then
-    eval "`dircolors -b`"
-    alias ls='ls --color=auto'
-fi
-
-type gvim >/dev/null 2>&1
-if [ $? -ne 0 ]; then
-    #echo defaulting gvim to vim ;
-    alias gvim="vim";
-fi
-
 
 #
 # provide git completion when pressing <tab> with git command and git status in prompt

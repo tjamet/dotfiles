@@ -10,11 +10,11 @@
 	br      = branch
 	st      = status
 [merge]
-    tool    = meld
+    tool    = "if [[ $(uname) == "Darwin" ]]; then TOOL="sourcetree" ; else TOOL="meld" ; fi ; $TOOL"
 [mergetool]
     prompt  = false
 [diff]
-    tool    = meld
+    tool    = "if [[ $(uname) == "Darwin" ]]; then TOOL="sourcetree" ; else TOOL="meld" ; fi ; $TOOL"
 [difftool]
     prompt  = false
 [push]

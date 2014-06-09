@@ -39,7 +39,24 @@ set scs
 set autoindent
 " no tab at LBC
 set shiftwidth=4 tabstop=4
+
+
+command! -nargs=0 -bar TtabToggle call s:Ttoggle_expandtab()
+function! s:Ttoggle_expandtab()
+    if g:_expandedtab==1
+        set noexpandtab
+        let g:_expandedtab=0
+    else
+        set expandtab
+        let g:_expandedtab=1
+    endif
+endfunction
+let g:_expandedtab=1
 set expandtab
+nnoremap <silent> <F2> :TtabToggle<CR>
+vnoremap <silent> <F2> :TtabToggle<CR>
+inoremap <silent> <F2>   <ESC><F2>la
+inoremap <silent> <S-F2> <ESC><F2>ji
 "set tags=~/tags
 
 " First define default font, then try preferred other fonts...
