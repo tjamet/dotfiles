@@ -11,11 +11,11 @@
 	st       = status
     showtool = "! git difftool $1^ "
 [merge]
-    tool    = "if [[ $(uname) == "Darwin" ]]; then TOOL="sourcetree" ; else TOOL="meld" ; fi ; $TOOL"
+    tool    = meld
 [mergetool]
     prompt  = false
 [diff]
-    tool    = "if [[ $(uname) == "Darwin" ]]; then TOOL="sourcetree" ; else TOOL="meld" ; fi ; $TOOL"
+    tool    = meld
 [difftool]
     prompt  = false
 [push]
