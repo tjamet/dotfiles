@@ -193,11 +193,11 @@ function forward(){
     err=$?;
     return $err;
 }
-if ! [ $TJ_FINAL_HOST ] ; then
-    alias make='forward make'
-    alias git='forward git'
-    export GIT_CMD='forward git'
-fi
+#if ! [ $TJ_FINAL_HOST ] ; then
+#    alias make='forward make'
+#    alias git='forward git'
+#    export GIT_CMD='forward git'
+#fi
 unset TJ_FINAL_HOST
 
 PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"'echo "$PWD $(history 1)" >> ~/.bash_eternal_history'
