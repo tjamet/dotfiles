@@ -42,16 +42,6 @@ fi
 export PATH=$PATH:$HOME/.local/bin:$HOME/bin
 
 alias h="history"
-fw_make(){
-    if ! [ -d "%STATE" ]; then 
-        mkdir "%STATE" ;
-        > "%STATE/target"
-    fi
-    grep -v "^$@$" %STATE/target > %STATE/target1
-    cat %STATE/target1  > %STATE/target
-    echo $@            >> %STATE/target
-    env make $(for i in $(seq $#); do echo -n " $1"; shift ; done) ;
-}
 
 alias make='fw_make'
 alias ht='cat %STATE/target'
@@ -59,9 +49,10 @@ alias ht='cat %STATE/target'
 # initializes the ssh agent infos so that no password is requested with ssh
 if [ -f ~/agent ] ; then
    source ~/agent >/dev/null 2>/dev/null ;
-   if [[ $(stat $SSH_AUTH_SOCK 2>/dev/null | wc -l) == "0" ]]; then
-      rm ~/agent ;
-   fi
+   stat $SSH_AUTH_SOCK >/dev/null 2>/dev/null || (rm ~/agent ; killall ssh-agent >/dev/null 2>/dev/null);
+   #if [[ $(stat $SSH_AUTH_SOCK 2>/dev/null | wc -l) == "0" ]]; then
+   #   rm ~/agent ;
+   #fi
 fi
 if ! [ -f ~/agent ] ; then
    ssh-agent > ~/agent ;
