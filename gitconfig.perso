@@ -6,9 +6,10 @@
 	branch  = auto
 	status  = auto
 [alias]
-	co      = checkout
-	br      = branch
-	st      = status
+	co       = checkout
+	br       = branch
+	st       = status
+    showtool = "! git difftool $1^ "
 [merge]
     tool    = "if [[ $(uname) == "Darwin" ]]; then TOOL="sourcetree" ; else TOOL="meld" ; fi ; $TOOL"
 [mergetool]
