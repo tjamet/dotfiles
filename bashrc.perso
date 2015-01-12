@@ -96,26 +96,18 @@ xterm*|rxvt*)
     ;;
 esac
 
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+
 #
 # provide git completion when pressing <tab> with git command and git status in prompt
 #
-if [ -e ${HOME}/.git-completion.sh ]; then
-  source ~/.git-completion.sh
-else
-  echo "WARNING : disabled git auto completion as .git-completion.sh is not found in $HOME" >&2 ;
-fi
-toto (){
-    echo " toto "
-}
-if [ -e ${HOME}/.git-prompt.sh ]; then
-  PS1="${PS1_START}"'$(__git_ps1   " (%s)") '"${PS1_END}"
-  #PS1='$(date)'"${PS1_START}${PS1_END}"
-  source ~/.git-prompt.sh
-  #PS1='${green}\u@\h:\[\033[00;34m\]\w\[\033[32m\]$(__git_ps1 " (%s)")\[\033[0m\] \$ '
-  export GIT_PS1_SHOWDIRTYSTATE=1
-  export PS1 PATH
-else
-  echo "WARNING : disabled git auto completion as .git-prompt.sh is not found in $HOME" >&2 ;
+if [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]; then
+    export GIT_PS1_SHOWDIRTYSTATE=1 GIT_PS1_SHOWSTASHSTATE=1 GIT_PS1_SHOWUNTRACKEDFILES=1
+    export GIT_PS1_SHOWUPSTREAM=verbose GIT_PS1_DESCRIBE_STYLE=branch
+    . /usr/share/git-core/contrib/completion/git-prompt.sh
+    PS1="${PS1_START}"'$(__git_ps1   " (%s)") '"${PS1_END}"
 fi
 
 
