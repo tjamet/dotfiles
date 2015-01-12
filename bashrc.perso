@@ -103,13 +103,12 @@ fi
 #
 # provide git completion when pressing <tab> with git command and git status in prompt
 #
-if [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]; then
+type __git_ps1 > /dev/null 2>/dev/null
+if [ $? -eq 0 ]; then
     export GIT_PS1_SHOWDIRTYSTATE=1 GIT_PS1_SHOWSTASHSTATE=1 GIT_PS1_SHOWUNTRACKEDFILES=1
     export GIT_PS1_SHOWUPSTREAM=verbose GIT_PS1_DESCRIBE_STYLE=branch
-    . /usr/share/git-core/contrib/completion/git-prompt.sh
     PS1="${PS1_START}"'$(__git_ps1   " (%s)") '"${PS1_END}"
 fi
-
 
 #
 # find in base functions
