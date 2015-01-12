@@ -31,6 +31,11 @@ filetype on
 
 "File type
 
+" LBC file types session
+autocmd! BufRead,BufNewFile *.tmpl     set filetype=tmpl
+
+autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
+
 "Any search with an uppercase character becomes a case sensitive search.
 set ic
 set scs
