@@ -4,61 +4,6 @@
 #  echo "WARNING : disabled gvim alias as .vimrc is not found in $HOME" >&2 ;
 #fi
 
-if [[ $(uname) != "Darwin" ]];then
-    alias ls='ls -CF --color=tty'
-    
-    #
-    # some pretty colors to ls
-    #
-    export LS_OPTIONS='--color=auto'
-    eval "`dircolors`"
-    alias ll='ls $LS_OPTIONS -l'
-    if [ "$TERM" != "dumb" ]; then
-        eval "`dircolors -b`"
-        alias ls='ls --color=auto'
-    fi
-    type gvim >/dev/null 2>&1
-    if [ $? -ne 0 ]; then
-        #echo defaulting gvim to vim ;
-        alias gvim="vim";
-    fi
-else
-    alias ls="ls -G";
-    alias ll="ls -alG" ;
-    alias gvim="open -a Macvim" ;
-    alias firefox="open -a firefox" ;
-    # see if docker is installed...
-    type boot2docker >/dev/null
-    err=$?
-    if [ $err -eq 0 ] ; then
-        boot2docker init  > /dev/null 2>/dev/null
-        boot2docker start > /dev/null 2>/dev/null
-        export DOCKER_HOST=tcp://$(boot2docker ip 2>/dev/null):2375
-    fi
-fi
-
-# 2-3 functions to get the list of latest targets...
-
-export PATH=$PATH:$HOME/.local/bin:$HOME/bin
-
-alias h="history"
-
-alias make='fw_make'
-alias ht='cat %STATE/target'
-
-# initializes the ssh agent infos so that no password is requested with ssh
-if [ -f ~/agent ] ; then
-   source ~/agent >/dev/null 2>/dev/null ;
-   stat $SSH_AUTH_SOCK >/dev/null 2>/dev/null || (rm ~/agent ; killall ssh-agent >/dev/null 2>/dev/null);
-   #if [[ $(stat $SSH_AUTH_SOCK 2>/dev/null | wc -l) == "0" ]]; then
-   #   rm ~/agent ;
-   #fi
-fi
-if ! [ -f ~/agent ] ; then
-   ssh-agent > ~/agent ;
-   source ~/agent >/dev/null 2>/dev/null ;
-fi
-
 #
 # Some nice colors to prompt
 #
@@ -95,6 +40,65 @@ xterm*|rxvt*)
 *)
     ;;
 esac
+
+if [[ $(uname) != "Darwin" ]];then
+    alias ls='ls -CF --color=tty'
+    
+    #
+    # some pretty colors to ls
+    #
+    export LS_OPTIONS='--color=auto'
+    eval "`dircolors`"
+    alias ll='ls $LS_OPTIONS -l'
+    if [ "$TERM" != "dumb" ]; then
+        eval "`dircolors -b`"
+        alias ls='ls --color=auto'
+    fi
+    type gvim >/dev/null 2>&1
+    if [ $? -ne 0 ]; then
+        #echo defaulting gvim to vim ;
+        alias gvim="vim";
+    fi
+else
+    alias ls="ls -G";
+    alias ll="ls -alG" ;
+    alias gvim="open -a Macvim" ;
+    alias firefox="open -a firefox" ;
+    # see if docker is installed...
+    type boot2docker >/dev/null
+    err=$?
+    #if [ $err -eq 0 ] ; then
+    #    boot2docker init  > /dev/null 2>/dev/null
+    #    boot2docker start > /dev/null 2>/dev/null
+    #    export DOCKER_HOST=tcp://$(boot2docker ip 2>/dev/null):2375
+    #fi
+    if [ -f `brew --prefix`/etc/bash_completion ]; then
+        . `brew --prefix`/etc/bash_completion
+    fi
+fi
+
+# 2-3 functions to get the list of latest targets...
+
+export PATH=$PATH:$HOME/.local/bin:$HOME/bin
+
+alias h="history"
+
+alias make='fw_make'
+alias ht='cat %STATE/target'
+
+# initializes the ssh agent infos so that no password is requested with ssh
+if [ -f ~/agent ] ; then
+   source ~/agent >/dev/null 2>/dev/null ;
+   stat $SSH_AUTH_SOCK >/dev/null 2>/dev/null || (rm ~/agent ; killall ssh-agent >/dev/null 2>/dev/null);
+   #if [[ $(stat $SSH_AUTH_SOCK 2>/dev/null | wc -l) == "0" ]]; then
+   #   rm ~/agent ;
+   #fi
+fi
+if ! [ -f ~/agent ] ; then
+   ssh-agent > ~/agent ;
+   source ~/agent >/dev/null 2>/dev/null ;
+fi
+
 
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
@@ -184,11 +188,6 @@ function forward(){
     err=$?;
     return $err;
 }
-#if ! [ $TJ_FINAL_HOST ] ; then
-#    alias make='forward make'
-#    alias git='forward git'
-#    export GIT_CMD='forward git'
-#fi
 unset TJ_FINAL_HOST
 
 PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"'echo "$PWD $(history 1)" >> ~/.bash_eternal_history'
