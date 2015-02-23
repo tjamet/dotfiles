@@ -83,7 +83,7 @@ export PATH=$PATH:$HOME/.local/bin:$HOME/bin:.
 
 alias h="history"
 
-alias make='fw_make'
+#alias make='fw_make'
 alias ht='cat %STATE/target'
 
 # initializes the ssh agent infos so that no password is requested with ssh
