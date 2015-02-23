@@ -79,7 +79,7 @@ fi
 
 # 2-3 functions to get the list of latest targets...
 
-export PATH=$PATH:$HOME/.local/bin:$HOME/bin
+export PATH=$PATH:$HOME/.local/bin:$HOME/bin:.
 
 alias h="history"
 
