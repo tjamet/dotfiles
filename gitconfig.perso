@@ -58,6 +58,8 @@
 #    wordRegex = .
 #[fetch]
 #    recurseSubmodules = on-demand
+[fetch]
+	prune = true
 [grep]
     extendedRegexp = true
 [log]
