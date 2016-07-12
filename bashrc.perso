@@ -190,4 +190,13 @@ function forward(){
 }
 unset TJ_FINAL_HOST
 
+s()
+{
+    get_env $* > ._env;
+    source ._env;
+    rm ._env
+}
+
+alias gpg=gpg2
+
 PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"'echo "$PWD $(history 1)" >> ~/.bash_eternal_history'
