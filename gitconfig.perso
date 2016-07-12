@@ -7,6 +7,7 @@
 	status  = auto
 # from git training 2014/12
     ui      = auto
+	whitespace = red reverse
 [alias]
 	co       = checkout
 	br       = branch
