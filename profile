@@ -112,10 +112,14 @@ function env-update() {
     else
         env_dir=${1}
     fi
+    for l in $(find ~ -maxdepth 1 -name '.*' -type l); do
+        [ -e $l ] || rm -v $l
+    done
     for f in $(ls ${env_dir}); do
         [ -e ~/.$(basename ${f}) ] || ln -vs ${env_dir}/$f ~/.$(basename ${f})
     done
 }
+
 
 path-setup
 alias-setup
