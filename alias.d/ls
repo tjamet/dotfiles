@@ -1,0 +1,18 @@
+if [[ $(uname) != "Darwin" ]];then
+    alias ls='ls -CF --color=tty'
+    
+    #
+    # some pretty colors to ls
+    #
+    export LS_OPTIONS='--color=auto'
+    eval "`dircolors`"
+    alias ll='ls $LS_OPTIONS -l'
+    if [ "$TERM" != "dumb" ]; then
+        eval "`dircolors -b`"
+        alias ls='ls --color=auto'
+    fi
+else
+    alias ls="ls -G";
+    alias ll="ls -alG" ;
+fi
+
