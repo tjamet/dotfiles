@@ -92,3 +92,5 @@
     upstream = cyan
 #[tag]
 #  sort = version:refname
+[include]
+    path = ~/.gitconfig.local
