@@ -1,9 +1,11 @@
 set nocompatible	" Use Vim defaults (much better!)
 filetype off
 set rtp+=~/.vim/bundle
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin("~/vimPlugins")
 Plugin 'gmarik/Vundle.vim'
 Plugin 'Lokaltog/vim-powerline'
+Plugin 'fatih/vim-go'
 call vundle#end()
 ":VundleUpdate
 ":q
