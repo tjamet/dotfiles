@@ -14,15 +14,12 @@ function source-env() {
 }
 
 function gpg-agent-setup() {
-	if [ -e ~/.gnupg.env ]; then
-	    . ~/.gnupg.env
-	fi
-	if [ -z ${SSH_AUTH_SOCK} ] || ! [ -e ${SSH_AUTH_SOCK} ]; then
-	    echo 'new'
-	    killall gpg-agent
-	    gpg-agent --daemon > ~/.gnupg.env
-	fi
-	. ~/.gnupg.env
+    if [ -f ~/.gpg-agent-info ]; then
+      . ~/.gpg-agent-info
+      export GPG_AGENT_INFO
+      export SSH_AUTH_SOCK
+    fi
+    export GPG_TTY=$(tty)
 }
 
 function bashcomplete-setup() {
