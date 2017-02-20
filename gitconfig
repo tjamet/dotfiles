@@ -16,8 +16,8 @@
 	st       = status
     showtool = "! git difftool $1^ "
 # from git training 2014/12
-    ci      = commit
-    lg      = log --graph --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset'
+    ci      = commit -s
+    lg      = log --graph --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset %N'
     oops    = commit --amend --no-edit
 [merge]
     tool    = meld
