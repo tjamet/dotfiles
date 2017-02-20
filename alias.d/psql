@@ -1,0 +1,1 @@
+alias psql='docker run --rm --net host -ti postgres:${PSQL_VERSION-9.6}-alpine psql'
