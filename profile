@@ -115,6 +115,7 @@ function env-update() {
     for f in $(ls ${env_dir}); do
         [ -e ~/.$(basename ${f}) ] || ln -vs ${env_dir}/$f ~/.$(basename ${f})
     done
+    [ -e ~/.bashrc ] || ln -vs ${env_dir}/profile ~/.bashrc
 }
 
 
