@@ -8,6 +8,8 @@
 # from git training 2014/12
     ui      = auto
 	whitespace = red reverse
+[notes]
+    displayRef=refs/notes/*
 [alias]
 	co       = checkout
 	br       = branch
