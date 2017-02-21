@@ -119,9 +119,16 @@ function env-update() {
 }
 
 
+function x-setup() {
+    [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
+}
+
 path-setup
 alias-setup
 gpg-agent-setup
 bashcomplete-setup
 prompt-setup
+if [ $(uname) == Linux ]; then
+    x-setup
+fi
 local-setup
