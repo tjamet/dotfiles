@@ -1,0 +1,4 @@
+#!/usr/bin/env whalebrew
+image: tjamet/npm-run
+volumes:
+- ~/.npm:/.npm

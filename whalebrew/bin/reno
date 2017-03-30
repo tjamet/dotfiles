@@ -1,0 +1,3 @@
+#!/usr/bin/env whalebrew
+image: tjamet/reno
+workingdir: $PWD

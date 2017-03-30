@@ -1,0 +1,3 @@
+#!/usr/bin/env whalebrew
+image: tjamet/jekyll
+workingdir: /[/workdir]

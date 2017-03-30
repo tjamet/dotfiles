@@ -1,0 +1,6 @@
+#!/usr/bin/env whalebrew
+environment:
+- DOCKER_HOST
+image: tjamet/caduc
+volumes:
+- /var/run/docker.sock:/var/run/docker.sock

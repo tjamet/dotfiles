@@ -1,0 +1,2 @@
+export WHALEBREW_INSTALL_PATH=${HOME}/.whalebrew/bin
+export PATH=${PATH}:${HOME}/.whalebrew/bin
