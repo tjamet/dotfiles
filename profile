@@ -66,13 +66,15 @@ function prompt-setup() {
     *)
         ;;
     esac
+
+    function __local_ps1() {
+        type __git_ps1 > /dev/null 2>/dev/null && __git_ps1   " (%s)"
+        type __docker_host_ps1 > /dev/null 2>/dev/null && __docker_host_ps1
+    }
     
-    type __git_ps1 > /dev/null 2>/dev/null
-    if [ $? -eq 0 ]; then
-        export GIT_PS1_SHOWDIRTYSTATE=1 GIT_PS1_SHOWSTASHSTATE=1 GIT_PS1_SHOWUNTRACKEDFILES=1
-        export GIT_PS1_SHOWUPSTREAM=verbose GIT_PS1_DESCRIBE_STYLE=branch
-        PS1="${PS1_START}"'$(__git_ps1   " (%s)") '"${PS1_END}"
-    fi
+    export GIT_PS1_SHOWDIRTYSTATE=1 GIT_PS1_SHOWSTASHSTATE=1 GIT_PS1_SHOWUNTRACKEDFILES=1
+    export GIT_PS1_SHOWUPSTREAM=verbose GIT_PS1_DESCRIBE_STYLE=branch
+    PS1="${PS1_START}"'$(__local_ps1   " (%s)") '"${PS1_END}"
     if [ -z "${PROMPT_COMMAND}" ]; then
         __PROMPT_COMMAND=${PROMPT_COMMAND}
     fi
