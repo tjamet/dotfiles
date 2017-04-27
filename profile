@@ -33,48 +33,17 @@ function bashcomplete-setup() {
 function prompt-setup() {
     source-all ~/.prompt
 
-    reset='\[\033[00m\]'
-    blue='\[\033[01;34m\]'
-    lightblue='\[\033[01;36m\]'
-    green='\[\033[01;32m\]'
-    red='\[\033[01;31m\]'
-    case "$TERM" in
-    xterm*)
-        if [ $(id -u) -eq 0 ]; then
-            PS1_START="${red}\u@${hostname:-\h}${reset}: ${blue}\w${reset}"
-            PS1_END=" # "
-        else
-            PS1_START="${green}\u@${hostname:-\h}${reset}: ${blue}\w${reset}"
-            PS1_END=" \$ "
-        fi
-        ;;
-    *)
-        if [ $(id -u) -eq 0 ]; then
-            PS1_START='\u@${hostname:-\h}: \w'
-            PS1_END=' # '
-        else
-            PS1_START='\u@${hostname:-\h}: \w'
-            PS1_END=' \$ '
-        fi
-        ;;
-    esac
-    
-    case "$TERM" in
-    xterm*|rxvt*)
-        PROMPT_COMMAND='echo -ne "\033]0;${USER}@${hostname:-$HOSTNAME}: ${PWD/$HOME/~}\007"'
-        ;;
-    *)
-        ;;
-    esac
-
     function __local_ps1() {
+        type __userhost_ps1 > /dev/null 2>/dev/null && __userhost_ps1
+        type __curdir_ps1 > /dev/null 2>/dev/null && __curdir_ps1
         type __git_ps1 > /dev/null 2>/dev/null && __git_ps1   " (%s)"
         type __docker_host_ps1 > /dev/null 2>/dev/null && __docker_host_ps1
+        echo ' $ '
     }
     
     export GIT_PS1_SHOWDIRTYSTATE=1 GIT_PS1_SHOWSTASHSTATE=1 GIT_PS1_SHOWUNTRACKEDFILES=1
     export GIT_PS1_SHOWUPSTREAM=verbose GIT_PS1_DESCRIBE_STYLE=branch
-    PS1="${PS1_START}"'$(__local_ps1   " (%s)") '"${PS1_END}"
+    PS1='$(__local_ps1 )'
     if [ -z "${PROMPT_COMMAND}" ]; then
         __PROMPT_COMMAND=${PROMPT_COMMAND}
     fi
