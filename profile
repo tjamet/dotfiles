@@ -118,6 +118,14 @@ function env-update() {
         [ -e ~/.$(basename ${f}) ] || ln -vs ${env_dir}/$f ~/.$(basename ${f})
     done
     [ -e ~/.bashrc ] || ln -vs ${env_dir}/profile ~/.bashrc
+    for f in $(ls ~/.setup.d/); do
+        f=$(basename $f)
+        if [ -x ~/.setup.d/${f} ]; then
+            ~/.setup.d/${f}
+        else
+            echo "~/.setup.d/${f} is not executable, please allow its execution for its setup"
+        fi
+    done
 }
 
 

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+GNUPGHOME=${GNUPGHOME-~/.gnupg}
+
+mkdir -p -m 700 ${GNUPGHOME}
+
+echo enable-ssh-support > ${GNUPGHOME}/gpg-agent.conf
+echo 'keyserver pgp.mit.edu' > ${GNUPGHOME}/gpg.conf
+
+if [ $(uname -s) == "Darwin" ]; then
+    pinentry=$(which pinentry-mac)
+    if ! [ -z ${pinentry} ]; then
+        echo pinentry-program ${pinentry} >> ${GNUPGHOME}/gpg-agent.conf
+    fi
+fi
