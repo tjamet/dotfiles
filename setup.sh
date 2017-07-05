@@ -12,3 +12,5 @@ d=$(dirname $0)
 . $(d/profile)
 env-update $d
 
+git clone https://github.com/tjamet/pass-env.git ~/pass-env
+
