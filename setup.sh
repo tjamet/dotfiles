@@ -14,3 +14,4 @@ env-update $d
 
 git clone https://github.com/tjamet/pass-env.git ~/pass-env
 
+type go > /dev/null 2>/dev/null || echo "Please install go, check this URL: https://golang.org/dl/"
