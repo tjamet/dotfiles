@@ -13,3 +13,4 @@ if [ $(uname -s) == "Darwin" ]; then
         echo pinentry-program ${pinentry} >> ${GNUPGHOME}/gpg-agent.conf
     fi
 fi
+echo "export SSH_AUTH_SOCK=${GNUPGHOME}/S.gpg-agent.ssh" > ~/.gpg-agent-info
