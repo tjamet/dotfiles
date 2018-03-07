@@ -1,6 +1,9 @@
 [user]
 	name    = Thibault Jamet
     email   = tjamet@users.noreply.github.com
+    signingkey = A3810C17
+[commit]
+	gpgsign = true
 [color]
 	diff    = auto
 	branch  = auto
@@ -16,7 +19,7 @@
 	st       = status
     showtool = "! git difftool $1^ "
 # from git training 2014/12
-    ci      = commit -s
+    ci      = commit
     lg      = log --graph --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset %N'
     oops    = commit --amend --no-edit
 [merge]
@@ -94,3 +97,5 @@
 #  sort = version:refname
 [include]
     path = ~/.gitconfig.local
+[commit]
+	gpgsign = true
