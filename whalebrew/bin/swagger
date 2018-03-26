@@ -1,0 +1,7 @@
+#!/usr/bin/env whalebrew
+image: quay.io/goswagger/swagger
+workingdir: $PWD
+environment:
+    - GOPATH
+ports:
+    - 9876:9876
