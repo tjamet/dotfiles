@@ -1,0 +1,4 @@
+#!/usr/bin/env whalebrew
+image: tjamet/yams-cli
+volumes:
+- ~/.yams:/.yams
