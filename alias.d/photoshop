@@ -1,0 +1,3 @@
+#!/bin/bash
+
+alias photoshop="open -a /Applications/Adobe\ Photoshop\ CC\ 2017/Adobe\ Photoshop\ CC\ 2017.app/"
