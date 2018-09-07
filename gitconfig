@@ -17,6 +17,7 @@
 	co       = checkout
 	br       = branch
 	st       = status
+    reword   = "! git commit --amend -m \"$(printf $1)\"; #"
     showtool = "! git difftool $1^ "
 # from git training 2014/12
     ci      = commit
