@@ -46,6 +46,7 @@
 
 [alias]
     st = status
+    vci = !git add vendor/ Gopkg.* && git commit
 # from git training 2014/12
 [core]
 #      pager = cat
