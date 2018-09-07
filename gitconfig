@@ -46,6 +46,7 @@
 
 [alias]
     st = status
+    new = !git init "$@" && git ci --allow-empty -m 'initial commit'
     vci = !git add vendor/ Gopkg.* && git commit
 # from git training 2014/12
 [core]
