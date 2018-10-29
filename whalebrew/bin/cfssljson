@@ -1,0 +1,5 @@
+#!/usr/bin/env whalebrew
+image: cfssl/cfssl
+workingdir: /go/src/github.com/cloudflare/cfssl
+entrypoint:
+- cfssljson
