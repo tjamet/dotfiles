@@ -30,24 +30,39 @@ function bashcomplete-setup() {
     source-all ~/.bash_completion
 }
 
-function prompt-setup() {
-    source-all ~/.prompt
-
-    function __local_ps1() {
-        type __userhost_ps1 > /dev/null 2>/dev/null && __userhost_ps1
-        type __curdir_ps1 > /dev/null 2>/dev/null && __curdir_ps1
-        type __git_ps1 > /dev/null 2>/dev/null && __git_ps1   " (%s)"
-        type __docker_host_ps1 > /dev/null 2>/dev/null && __docker_host_ps1
-        echo ' $ '
-    }
-    
-    export GIT_PS1_SHOWDIRTYSTATE=1 GIT_PS1_SHOWSTASHSTATE=1 GIT_PS1_SHOWUNTRACKEDFILES=1
-    export GIT_PS1_SHOWUPSTREAM=verbose GIT_PS1_DESCRIBE_STYLE=branch
-    PS1='$(__local_ps1 )'
-    if [ -z "${PROMPT_COMMAND}" ]; then
-        __PROMPT_COMMAND=${PROMPT_COMMAND}
+function _update_ps1() {
+    if [[ "${TERM_PROGRAM}" == 'vscode' ]]; then
+        mode=compatible
+    else
+        mode=patched
     fi
-    PROMPT_COMMAND=${__PROMPT_COMMAND}'echo "$PWD $(history 1)" >> ~/.bash_eternal_history'
+    PS1="$(powerline-go -mode ${mode} -error $? -modules user,host,ssh,docker,kube,cwd,perms,git,hg,jobs,exit,root -theme $HOME/.powerline/theme.json --path-aliases dev/src/github.schibsted.io=GHE,dev/src/github.com=GH)"
+}
+
+function prompt-setup() {
+    if powerline-go 2>/dev/null >/dev/null ; then
+        PROMPT_COMMAND=${__PROMPT_COMMAND}'echo "$PWD $(history 1)" >> ~/.bash_eternal_history'
+        if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
+            PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+        fi
+    else
+        source-all ~/.prompt
+
+        function __local_ps1() {
+            type __userhost_ps1 > /dev/null 2>/dev/null && __userhost_ps1
+            type __curdir_ps1 > /dev/null 2>/dev/null && __curdir_ps1
+            type __git_ps1 > /dev/null 2>/dev/null && __git_ps1   " (%s)"
+            type __docker_host_ps1 > /dev/null 2>/dev/null && __docker_host_ps1
+            echo ' $ '
+        }
+
+        export GIT_PS1_SHOWDIRTYSTATE=1 GIT_PS1_SHOWSTASHSTATE=1 GIT_PS1_SHOWUNTRACKEDFILES=1
+        export GIT_PS1_SHOWUPSTREAM=verbose GIT_PS1_DESCRIBE_STYLE=branch
+        PS1='$(__local_ps1 )'
+        if [ -z "${PROMPT_COMMAND}" ]; then
+            __PROMPT_COMMAND=${PROMPT_COMMAND}
+        fi
+    fi
 }
 
 function alias-setup() {
