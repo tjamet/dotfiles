@@ -30,23 +30,20 @@ function bashcomplete-setup() {
     source-all ~/.bash_completion
 }
 
-function _update_ps1() {
-    if [[ "${TERM_PROGRAM}" == 'vscode' ]]; then
-        mode=compatible
-    else
-        mode=patched
+function add-prompt-command {
+    if ! [ -z "${PROMPT_COMMAND}" ];then
+        PROMPT_COMMAND=${PROMPT_COMMAND}';'
     fi
-    PS1="$(powerline-go -mode ${mode} -error $? -modules user,host,ssh,docker,kube,cwd,perms,git,hg,jobs,exit,root -theme $HOME/.powerline/theme.json --path-aliases dev/src/github.schibsted.io=GHE,dev/src/github.com=GH)"
+    PROMPT_COMMAND=${PROMPT_COMMAND}"$@"
 }
 
 function prompt-setup() {
-    if powerline-go 2>/dev/null >/dev/null ; then
-        PROMPT_COMMAND=${__PROMPT_COMMAND}'echo "$PWD $(history 1)" >> ~/.bash_eternal_history'
-        if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
-            PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
-        fi
-    else
-        source-all ~/.prompt
+    if [ -z "${__PROMPT_COMMAND}" ]; then
+        __PROMPT_COMMAND=${PROMPT_COMMAND}
+    fi
+    PROMPT_COMMAND=${__PROMPT_COMMAND}
+    source-all ~/.prompt
+    if ! powerline-go 2>/dev/null >/dev/null ; then
 
         function __local_ps1() {
             type __userhost_ps1 > /dev/null 2>/dev/null && __userhost_ps1
@@ -59,9 +56,6 @@ function prompt-setup() {
         export GIT_PS1_SHOWDIRTYSTATE=1 GIT_PS1_SHOWSTASHSTATE=1 GIT_PS1_SHOWUNTRACKEDFILES=1
         export GIT_PS1_SHOWUPSTREAM=verbose GIT_PS1_DESCRIBE_STYLE=branch
         PS1='$(__local_ps1 )'
-        if [ -z "${PROMPT_COMMAND}" ]; then
-            __PROMPT_COMMAND=${PROMPT_COMMAND}
-        fi
     fi
 }
 
@@ -116,6 +110,7 @@ function env-update() {
 function x-setup() {
     [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 }
+
 
 path-setup
 alias-setup
