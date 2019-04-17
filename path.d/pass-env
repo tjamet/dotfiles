@@ -1,3 +1,0 @@
-export PATH=$PATH:$HOME/pass-env/bin
-. ~/pass-env/bashrc
-
