@@ -1,3 +1,9 @@
+if [ -e /usr/local/etc/bash_completion.d/git-completion.bash ]; then
+    . /usr/local/etc/bash_completion.d/git-completion.bash
+elif [ -e /etc/bash_completion.d/git-completion.bash ]; then
+    . /etc/bash_completion.d/git-completion.bash
+else
+
 # bash/zsh completion support for core Git.
 #
 # Copyright (C) 2006,2007 Shawn O. Pearce <spearce@spearce.org>
@@ -2695,4 +2701,6 @@ __git_complete gitk __gitk_main
 #
 if [ Cygwin = "$(uname -o 2>/dev/null)" ]; then
 __git_complete git.exe __git_main
+fi
+
 fi
