@@ -111,6 +111,21 @@ function x-setup() {
     [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 }
 
+function install-go() {
+    go get -u -d $2
+    go install -o ~/.bin/$1 $2
+}
+
+function install-all-tools() {
+    mkdir -p $HOME/.bin
+    # TODO: install latest? go
+    install-go pass github.com/gopasspw/gopass
+    brew --help >/dev/null 2>/dev/null || /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    brew install gpg git pinentry-mac
+    install-go whalebrew github.com/whalebrew/whalebrew
+    install-go powerline-go-datadog github.com/tjamet/powerline-go-datadog
+}
+
 
 path-setup
 alias-setup

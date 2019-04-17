@@ -6,7 +6,8 @@ My dot files
 ```bash
 git clone https://github.com/tjamet/dotfiles.git dotfiles
 . dotfiles/profile
-env-setup $PWD/dotfiles
+install-all-tools
+env-update $PWD/dotfiles
 source-env
 ```
 
