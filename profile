@@ -113,7 +113,7 @@ function x-setup() {
 
 function install-go() {
     go get -u -d $2
-    go install -o ~/.bin/$1 $2
+    go build -o ~/.bin/$1 $2
 }
 
 function install-all-tools() {
