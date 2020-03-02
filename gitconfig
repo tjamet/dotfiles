@@ -1,7 +1,7 @@
 [user]
 	name    = Thibault Jamet
     email   = tjamet@users.noreply.github.com
-    signingkey = A3810C17
+    signingkey = B334F3452D9A6625
 [commit]
 	gpgsign = true
 [color]
