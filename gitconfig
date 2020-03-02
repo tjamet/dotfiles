@@ -102,3 +102,9 @@
     path = ~/.gitconfig.local
 [commit]
 	gpgsign = true
+[sendemail]
+  smtpserver = smtp.gmail.com
+  smtpserverport = 587
+  smtpencryption = tls
+  smtpuser = thibault.jamet@gmail.com
+  from = thibault.jamet@gmail.com
