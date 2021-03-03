@@ -1,4 +1,4 @@
 #!/usr/bin/env whalebrew
-image: tjamet/npm
+image: whalebrew/npm
 volumes:
-- ~/.home.npm:/home
+- ~/.home.npm:/.npm
