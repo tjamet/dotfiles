@@ -1,4 +1,5 @@
-function source-all() {
+
+source-all() {
     if [ -e ${1} ]; then
         . $1
     fi
@@ -9,7 +10,7 @@ function source-all() {
     fi
 }
 
-function source-env() {
+source-env() {
     . ~/.profile
 }
 
@@ -24,7 +25,16 @@ function gpg-agent-setup() {
 
 function bashcomplete-setup() {
     if [[ $(uname) == 'Darwin' ]]; then
-        source-all `brew --prefix`/etc/bash_completion
+        case ${SHELL} in
+            */zsh)
+                FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+                autoload -Uz compinit
+                compinit
+            ;;
+            *)
+                source-all `brew --prefix`/etc/bash_completion
+            ;;
+        esac
     fi
     source-all /etc/bash_completion
     source-all ~/.bash_completion
@@ -132,7 +142,7 @@ alias-setup
 gpg-agent-setup
 bashcomplete-setup
 prompt-setup
-if [ $(uname) == Linux ]; then
+if [[ $(uname) == Linux ]]; then
     x-setup
 fi
 local-setup

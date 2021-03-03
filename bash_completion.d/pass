@@ -1,2 +1,2 @@
 # pass is gopass
-source /dev/stdin <<<"$(pass completion bash)"
+source /dev/stdin <<<"$(pass completion ${SHELL##*/})"
