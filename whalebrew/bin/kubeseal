@@ -1,0 +1,4 @@
+#!/usr/bin/env whalebrew
+image: whalebrew/kubeseal
+volumes:
+- ~/.kube:/.kube
