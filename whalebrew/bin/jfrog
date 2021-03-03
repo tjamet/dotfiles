@@ -1,0 +1,6 @@
+#!/usr/bin/env whalebrew
+environment:
+- HOME
+image: whalebrew/jfrog
+volumes:
+- $HOME/.jfrog:$HOME/.jfrog
