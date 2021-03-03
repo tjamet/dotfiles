@@ -1,0 +1,9 @@
+#!/usr/bin/env whalebrew
+image: whalebrew/helm:3
+networks:
+- host
+volumes:
+- ~/.helm:/.helm
+- ~/.kube:/.kube
+- ~/.cache/helm:/.cache/helm
+- ~/.config/helm:/.config/helm
