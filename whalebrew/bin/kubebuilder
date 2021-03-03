@@ -1,0 +1,5 @@
+#!/usr/bin/env whalebrew
+image: whalebrew/kubebuilder
+volumes:
+- ~/.kubebuilder.cache:/cache
+working_dir: /go
