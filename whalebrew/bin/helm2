@@ -1,0 +1,8 @@
+#!/usr/bin/env whalebrew
+image: whalebrew/helm:2.16.7
+volumes:
+- ~/.helm:/.helm
+- ~/.kube:/.kube
+- ~/.cache/helm:/.cache/helm
+- ~/.config/helm:/.config/helm
+- ${GNUPGHOME}:/.gnupg
