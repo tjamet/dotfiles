@@ -5,10 +5,7 @@ My dot files
 
 ```bash
 git clone https://github.com/tjamet/dotfiles.git dotfiles
-. dotfiles/profile
-install-all-tools
-env-update $PWD/dotfiles
-source-env
+./dotfiles/install
 ```
 
 Ensure you source ~/.profile in your bash profile.
