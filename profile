@@ -1,3 +1,7 @@
+type zsh >/dev/null 2>/dev/null && exec zsh
+
+echo "this shell is not fully supported but zsh was not found."
+
 
 source-all() {
     if [ -e ${1} ]; then
