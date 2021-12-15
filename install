@@ -51,7 +51,8 @@ def main():
                 raise Exception("unexpected status %s"%resp.status)
             script.write(resp.read())
             subprocess.check_call(["bash", script.name, "--unattended", "--keep-zshrc"])
-    subprocess.call(["chsh", "-s", shutil.which("zsh"), pwd.getpwuid(os.getuid()).pw_name])
+    if pwd.getpwuid(os.getuid()).pw_name != "codespace":
+        subprocess.call(["chsh", "-s", shutil.which("zsh"), pwd.getpwuid(os.getuid()).pw_name])
 
 
 if __name__ == "__main__":
