@@ -1,9 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from genericpath import exists
-import sys, os, pathlib, urllib.request, subprocess, tempfile, platform, shutil, pwd
+import sys, os, pathlib, urllib.request, subprocess, tempfile, platform, shutil, pwd, platform
 
-exclude = {"LICENSE", "README.md", ".git", ".gitignore"}
+exclude = {"LICENSE", "README.md", ".git", ".gitignore", ".setup.d"}
 
 goplatforms = {
     "x86_64": "amd64",
@@ -22,14 +22,39 @@ def main():
         except FileExistsError:
             os.remove(destination)
             os.symlink(os.path.join(dotfiles_dir, file), destination)
+    for file in os.listdir(os.path.join(dotfiles_dir, "setup.d")):
+        subprocess.check_call(["bash", os.path.join(dotfiles_dir,"setup.d", file)])
 
     local_bin = os.path.join(pathlib.Path.home(),".local/bin")
     if not os.path.exists(local_bin):
         os.makedirs(local_bin)
 
+    resp = urllib.request.urlopen("https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh")
+    if resp.status!=200:
+        raise Exception("unexpected status %s"%resp.status)
+    subprocess.check_call(["bash", "-c", resp.read()])
+
+    if platform.system() == "Darwin":
+        subprocess.check_call(["brew", "install", "--cask",
+                              "visual-studio-code",
+                              "docker",
+                              "lastpass",
+                              "google-chrome",
+                              "slack",
+                              "iterm2",
+                              ])
+    subprocess.check_call(["brew", "install",
+                           "whalebrew",
+                           "gnupg",
+                           "pinentry-mac",
+                           "watch",
+                           "kubernetes-cli",
+                           ])
+
+
     powerline_go_path = os.path.join(local_bin,"powerline-go")
     with open(powerline_go_path, "wb") as fd:
-        resp = urllib.request.urlopen("https://github.com/justjanne/powerline-go/releases/download/v1.21.0/powerline-go-%s-%s" % (sys.platform, goplatforms[platform.uname()[-2]]))
+        resp = urllib.request.urlopen("https://github.com/justjanne/powerline-go/releases/download/v1.24/powerline-go-%s-%s" % (sys.platform, goplatforms[platform.uname()[-2]]))
         if resp.status!=200:
             raise Exception("unexpected status %s"%resp.status)
         fd.write(resp.read())
@@ -53,7 +78,6 @@ def main():
             subprocess.check_call(["bash", script.name, "--unattended", "--keep-zshrc"])
     if pwd.getpwuid(os.getuid()).pw_name != "codespace":
         subprocess.call(["chsh", "-s", shutil.which("zsh"), pwd.getpwuid(os.getuid()).pw_name])
-
 
 if __name__ == "__main__":
     main()
