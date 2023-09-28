@@ -80,36 +80,6 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-if powerline-go 2>/dev/null >/dev/null ; then
-    if [ -e $HOME/.powerline/theme.json ]; then
-        THEME=(-theme $HOME/.powerline/theme.json)
-    else
-        echo "missing powerline theme $HOME/.powerline/theme.json"
-        THEME=()
-    fi
-    function powerline_precmd() {
-        if [[ "x${VSCODE_PID}" != 'x' ]]; then
-            mode=compatible
-        else
-            mode=patched
-        fi
-        PS1="$(powerline-go -condensed -mode ${mode} -error $? -modules user,host,datadog,ssh,docker,kube,schip,cwd,perms,git,hg,jobs,exit,root ${THEME[@]} --path-aliases go/src/github.mpi-internal.com=GHE,go/src/github.com=GH -shell zsh)"
-    }
-    
-    function install_powerline_precmd() {
-      for s in "${precmd_functions[@]}"; do
-        if [ "$s" = "powerline_precmd" ]; then
-          return
-        fi
-      done
-      precmd_functions+=(powerline_precmd)
-    }
-    
-    if [ "$TERM" != "linux" ]; then
-        install_powerline_precmd
-    fi
-fi
-
 function source-all() {
     if [ -e ${1} ]; then
         . $1
@@ -146,6 +116,36 @@ function alias-setup() {
 path-setup
 gpg-agent-setup
 alias-setup
+
+if powerline-go 2>/dev/null >/dev/null ; then
+    if [ -e $HOME/.powerline/theme.json ]; then
+        THEME=(-theme $HOME/.powerline/theme.json)
+    else
+        echo "missing powerline theme $HOME/.powerline/theme.json"
+        THEME=()
+    fi
+    function powerline_precmd() {
+        if [[ "x${VSCODE_PID}" != 'x' ]]; then
+            mode=compatible
+        else
+            mode=patched
+        fi
+        PS1="$(powerline-go -condensed -mode ${mode} -error $? -modules user,host,ssh,docker,kube,cwd,perms,git,hg,jobs,exit,root ${THEME[@]} --path-aliases go/src/github.mpi-internal.com=GHE,go/src/github.com=GH -shell zsh)"
+    }
+    
+    function install_powerline_precmd() {
+      for s in "${precmd_functions[@]}"; do
+        if [ "$s" = "powerline_precmd" ]; then
+          return
+        fi
+      done
+      precmd_functions+=(powerline_precmd)
+    }
+    
+    if [ "$TERM" != "linux" ]; then
+        install_powerline_precmd
+    fi
+fi
 
 # User configuration
 
