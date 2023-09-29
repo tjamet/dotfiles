@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from genericpath import exists
+import distutils.spawn
 import sys, os, pathlib, urllib.request, subprocess, tempfile, platform, shutil, pwd, platform
 
 exclude = {"LICENSE", "README.md", ".git", ".gitignore", ".setup.d"}
@@ -28,27 +29,32 @@ def main():
     local_bin = os.path.join(pathlib.Path.home(),".local/bin")
     if not os.path.exists(local_bin):
         os.makedirs(local_bin)
+    os.environ["PATH"] = os.path.pathsep.join([os.environ["PATH"], "/usr/local/bin", "/opt/homebrew/bin"])
 
-    resp = urllib.request.urlopen("https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh")
-    if resp.status!=200:
-        raise Exception("unexpected status %s"%resp.status)
-    subprocess.check_call(["bash", "-c", resp.read()])
+    if distutils.spawn.find_executable("brew") is None:
+        resp = urllib.request.urlopen("https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh")
+        if resp.status!=200:
+            raise Exception("unexpected status %s"%resp.status)
+        subprocess.check_call(["bash", "-c", resp.read()])
 
     if platform.system() == "Darwin":
-        subprocess.check_call(["brew", "install", "--cask",
+        subprocess.check_call(["/opt/homebrew/bin/brew", "install", "--cask",
                               "visual-studio-code",
                               "docker",
                               "lastpass",
                               "google-chrome",
                               "slack",
                               "iterm2",
+                              "tunnelblick",
                               ])
-    subprocess.check_call(["brew", "install",
+    subprocess.check_call(["/opt/homebrew/bin/brew", "install",
                            "whalebrew",
                            "gnupg",
                            "pinentry-mac",
                            "watch",
                            "kubernetes-cli",
+                           "golang",
+                            "int128/kubelogin/kubelogin",
                            ])
 
 
@@ -78,6 +84,8 @@ def main():
             subprocess.check_call(["bash", script.name, "--unattended", "--keep-zshrc"])
     if pwd.getpwuid(os.getuid()).pw_name != "codespace":
         subprocess.call(["chsh", "-s", shutil.which("zsh"), pwd.getpwuid(os.getuid()).pw_name])
+    # subprocess.check_call(["git", "clone", "https://github.com/powerline/fonts.git", "--depth=1"])
+    # subprocess.check_call()
 
 if __name__ == "__main__":
     main()
