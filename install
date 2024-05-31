@@ -47,6 +47,7 @@ def main():
                               "iterm2",
                               "tunnelblick",
                               ])
+    subprocess.check_call(["/opt/homebrew/bin/brew", "tap", "adevinta/maiao", "https://github.com/adevinta/maiao.git"])
     subprocess.check_call(["/opt/homebrew/bin/brew", "install",
                            "whalebrew",
                            "gnupg",
@@ -54,21 +55,14 @@ def main():
                            "watch",
                            "kubernetes-cli",
                            "golang",
-                            "int128/kubelogin/kubelogin",
+                           "maiao",
+                           "int128/kubelogin/kubelogin",
                            ])
 
 
     powerline_go_path = os.path.join(local_bin,"powerline-go")
     with open(powerline_go_path, "wb") as fd:
         resp = urllib.request.urlopen("https://github.com/justjanne/powerline-go/releases/download/v1.24/powerline-go-%s-%s" % (sys.platform, goplatforms[platform.uname()[-2]]))
-        if resp.status!=200:
-            raise Exception("unexpected status %s"%resp.status)
-        fd.write(resp.read())
-    os.chmod(powerline_go_path, 0o755)
-
-    powerline_go_path = os.path.join(local_bin,"git-review")
-    with open(powerline_go_path, "wb") as fd:
-        resp = urllib.request.urlopen("https://github.com/adevinta/maiao/releases/download/1.0.0/git-review-%s-%s" % (platform.uname()[0], goplatforms[platform.uname()[-2]]))
         if resp.status!=200:
             raise Exception("unexpected status %s"%resp.status)
         fd.write(resp.read())
