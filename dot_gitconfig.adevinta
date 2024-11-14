@@ -1,0 +1,7 @@
+[user]
+  name    = Thibault Jamet
+  email   = thibault.jamet@adevinta.com
+[commit]
+  gpgsign = false
+[url "git@github.mpi-internal.com:"]
+  insteadOf = https://github.mpi-internal.com/

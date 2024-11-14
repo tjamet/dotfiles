@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Brewfile hash: {{ includeTemplate "dot_Brewfile.tmpl" $ | sha256sum }}
+brew bundle install --no-lock --file=/dev/stdin <<EOF
+{{ includeTemplate "dot_Brewfile.tmpl" $ -}}
+EOF
+

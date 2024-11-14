@@ -1,8 +1,0 @@
-# Infos:
-# https://support.yubico.com/support/solutions/articles/15000006421-resetting-the-openpgp-applet-on-the-yubikey
-# https://support.yubico.com/support/solutions/articles/15000006420-using-your-yubikey-with-openpgp
-
-location="/Applications/YubiKey Manager.app/Contents/MacOS/"
-if [ -d "${location}" ]; then
-    export PATH=$PATH:${location}
-fi

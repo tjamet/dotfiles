@@ -1,0 +1,65 @@
+brew:
+  brew:
+  - apktool
+  - awscli
+  - chezmoi
+  - gnupg
+  - go
+  - int128/kubelogin/kubelogin
+  - kustomize
+  - adevinta/maiao/maiao
+  - nmap
+  - nvm
+  - openjdk
+  - pinentry
+  - powerline-go
+  - sqlite
+  - terraform
+  - watch
+  - whalebrew
+  - yamllint
+  cask:
+  - android-platform-tools
+  - android-studio
+  - flutter
+  - iterm2
+  - lastpass
+  - macpass
+  - spotify
+  - tunnelblick
+  - visual-studio-code
+  vscode:
+  - 4ops.terraform
+  - dart-code.dart-code
+  - dart-code.flutter
+  - github.codespaces
+  - github.copilot
+  - github.copilot-chat
+  - github.vscode-github-actions
+  - golang.go
+  - hashicorp.terraform
+  - luanpotter.dart-import
+  - ms-azuretools.vscode-docker
+  - ms-python.debugpy
+  - ms-python.isort
+  - ms-python.python
+  - ms-python.vscode-pylance
+  - ms-toolsai.jupyter
+  - ms-toolsai.jupyter-keymap
+  - ms-toolsai.jupyter-renderers
+  - ms-toolsai.vscode-jupyter-cell-tags
+  - ms-toolsai.vscode-jupyter-slideshow
+  - ms-vscode-remote.remote-containers
+  - ms-vscode-remote.remote-ssh
+  - ms-vscode-remote.remote-ssh-edit
+  - ms-vscode-remote.remote-wsl
+  - ms-vscode-remote.vscode-remote-extensionpack
+  - ms-vscode.copilot-mermaid-diagram
+  - ms-vscode.live-server
+  - ms-vscode.makefile-tools
+  - ms-vscode.remote-explorer
+  - ms-vscode.remote-server
+  - ms-vsliveshare.vsliveshare
+  darwin:
+    brew:
+    - pinentry-mac

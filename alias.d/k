@@ -1,5 +1,0 @@
-k=$(type kubectl 2>/dev/null | grep kubectl | awk '{print $NF}')
-
-if [[ $k != "" ]]; then
-    ln -sf "${k}" ~/.local/bin/k
-fi

@@ -1,1 +1,0 @@
-alias jjb='docker run --rm -v $PWD:/sources:ro -w /sources tjamet/jenkins-jobs'

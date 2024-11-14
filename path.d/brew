@@ -1,7 +1,0 @@
-if [[ $(uname) == "Darwin" ]];then
-    [[ ${PATH} == */usr/local/bin* ]] || export PATH="/usr/local/bin:${PATH}"
-fi
-
-if [ -e /opt/homebrew/bin ]; then
-   [[ ${PATH} == */opt/homebrew/bin* ]] || export PATH="/opt/homebrew/bin:${PATH}"
-fi

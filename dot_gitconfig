@@ -1,0 +1,119 @@
+[user]
+	name    = Thibault Jamet
+    email   = tjamet@users.noreply.github.com
+#    signingkey = B334F3452D9A6625
+[commit]
+#	gpgsign = true
+[color]
+	diff    = auto
+	branch  = auto
+	status  = auto
+# from git training 2014/12
+    ui      = auto
+	whitespace = red reverse
+[notes]
+    displayRef=refs/notes/*
+[alias]
+	co       = checkout
+	br       = branch
+	st       = status
+    reword   = "! git commit --amend -m \"$(printf $1)\"; #"
+    showtool = "! git difftool $1^ "
+# from git training 2014/12
+    ci      = commit
+    lg      = log --graph --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar %G?)%Creset'
+    oops    = commit --amend --no-edit
+[merge]
+    tool    = meld
+[mergetool]
+    prompt  = false
+[diff]
+    tool    = meld
+[difftool]
+    prompt  = false
+[push]
+    default = simple
+[mergetool "meld"]
+    cmd     = meld \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
+[difftool "meld"]
+    cmd     = meld \"$LOCAL\" \"$REMOTE\"
+[mergetool "custom"]
+        cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge "$PWD/$BASE" "$PWD/$REMOTE" "$PWD/$LOCAL" "$PWD/$MERGED"
+        keepTemporaries = false
+        trustExitCode = false
+        keepBackup = false
+
+
+[alias]
+    st = status
+    new = !git init "$@" && git ci --allow-empty -m 'initial commit'
+    vci = !git add vendor/ Gopkg.* && git commit
+# from git training 2014/12
+[core]
+#      pager = cat
+    editor = vim
+#
+# Out of luck: on Windows w/o msysGit? You may have Notepad++…
+# editor = 'C:/Program Files/Notepad++/notepad++.exe' -multiInst -notabbar -nosession -noPlugin
+# 
+# If you want to use Sublime Text 2's subl wrapper:
+# editor = subl -w
+# 
+    whitespace = -trailing-space
+[diff]
+    mnemonicPrefix = true
+    renames = true
+#    wordRegex = .
+#[fetch]
+#    recurseSubmodules = on-demand
+[fetch]
+	prune = true
+[grep]
+    extendedRegexp = true
+[log]
+    abbrevCommit = true
+[merge]
+    conflictStyle = diff3
+[mergetool]
+    keepBackup = false
+    keepTemporaries = false
+    prompt = false
+[pull]
+  # This is GREAT… when you know what you're doing and are careful
+  # not to pull --no-rebase over a local line containing a true merge.
+  # rebase = true
+  # WARNING! This option, which does away with the one gotcha of
+  # auto-rebasing on pulls, is only available from 1.8.5 onwards.
+    rebase = merges
+[push]
+    default = upstream
+[rerere]
+  # If, like me, you like rerere, decomment these
+    autoupdate = true
+    enabled = true
+[status]
+    submoduleSummary = true
+    showUntrackedFiles = all
+[color "branch"]
+    upstream = cyan
+#[tag]
+#  sort = version:refname
+[include]
+    path = ~/.gitconfig.local
+[sendemail]
+  smtpserver = smtp.gmail.com
+  smtpserverport = 587
+  smtpencryption = tls
+  smtpuser = thibault.jamet@gmail.com
+  from = thibault.jamet@gmail.com
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+[includeIf "hasconfig:remote.*.url:*github.mpi-internal.com*/*"]
+  path = ~/.gitconfig.adevinta
+[includeIf "hasconfig:remote.*.url:*github.com*adevinta/*"]
+  path = ~/.gitconfig.adevinta
+[includeIf "hasconfig:remote.*.url:*github.com*bojatt/*"]
+  path = ~/.gitconfig.bojatt

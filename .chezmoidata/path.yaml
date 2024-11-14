@@ -1,0 +1,8 @@
+paths:
+- $HOME/.bin
+- $HOME/bin
+- $HOME/.local/bin
+- ${HOME}/.whalebrew/bin
+env:
+ GOPATH: $HOME/go/
+ WHALEBREW_INSTALL_PATH: ${HOME}/.whalebrew/bin

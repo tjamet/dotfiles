@@ -1,0 +1,10 @@
+{{ range $k := (list "brew" "cask" "vscode") -}}
+{{ range ( index $.brew $k ) -}}
+{{ $k }} {{ . | quote }}
+{{ end -}}
+{{ if index $.brew $.chezmoi.os -}}
+{{ range (index (index $.brew $.chezmoi.os) $k) -}}
+{{ $k }} {{ . | quote }}
+{{ end -}}
+{{ end -}}
+{{ end -}}

@@ -1,23 +1,13 @@
-# dot_files
-My dot files
+# My dotfiles
 
-## Install
+Those dotfiles uses [chezmoi](https://www.chezmoi.io/) to bootstrap a personal computer.
+
+## Usage
+
+To bootstrap a computer, run:
 
 ```bash
-git clone https://github.com/tjamet/dotfiles.git dotfiles
-./dotfiles/install
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply tjamet
 ```
 
-Ensure you source ~/.profile in your bash profile.
-
-After install, you can refresh your environment with the followings:
-
-- `path-setup` to update your various PATH variables
-- `alias-setup` to update your aliases
-- `gpg-agent-setup` to reload your gpg agent settings
-- `bashcomplete-setup` to reload your bash completion scripts
-- `prompt-setup` to reset  your prompt
-- `x-setup` to reload X resources
-- `local-setup` to source your per-host profile (~/.profile.local)
-- `source-env` to setup everything
-- `env-setup` to update your dotfiles with your latest git version
+Later, follow the chezmoi documentation to update the laptop configuration

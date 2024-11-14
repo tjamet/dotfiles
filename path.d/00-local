@@ -1,2 +1,0 @@
-[[ ${PATH} == *${HOME}/bin* ]] || export PATH=$HOME/bin:${PATH}
-[[ ${PATH} == *${HOME}/.local/bin* ]] || export PATH=$HOME/.local/bin:${PATH}
